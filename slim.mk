@@ -1,0 +1,744 @@
+TARGET_SCREEN_HEIGHT := 1280
+TARGET_SCREEN_WIDTH := 800
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+$(call inherit-product, vendor/slim/config/common_full_phone.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+$(call inherit-product-if-exists, hardware/qcom/msm8994/msm8992.mk)
+$(call inherit-product-if-exists, vendor/qcom/gpu/msm8994/msm8994-gpu-vendor.mk)
+$(call inherit-product, vendor/xiaomi/libra/libra-vendor.mk)
+
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/init.libra.rc:root/init.libra.rc \
+    device/xiaomi/libra/init.aqua.rc:root/init.aqua.rc \
+    device/xiaomi/libra/init.recovery.libra.rc:root/init.recovery.libra.rc \
+    device/xiaomi/libra/init.libra.usb.rc:root/init.libra.usb.rc \
+    device/xiaomi/libra/fstab.libra:root/fstab.libra \
+    device/xiaomi/libra/ueventd.libra.rc:root/ueventd.libra.rc \
+    device/xiaomi/libra/init.libra.ramdump.rc:root/init.libra.ramdump.rc
+
+PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+    device/xiaomi/libra/media_codecs.xml:system/etc/media_codecs.xml \
+    device/xiaomi/libra/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+    device/xiaomi/libra/media_profiles.xml:system/etc/media_profiles.xml
+
+# Audio
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    device/xiaomi/libra/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    device/xiaomi/libra/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
+    device/xiaomi/libra/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
+    device/xiaomi/libra/audio/surround_sound_rec_AZ.cfg:system/etc/surround_sound_3mic/surround_sound_rec_AZ.cfg \
+    device/xiaomi/libra/audio/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt
+
+#Sound Trigger
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
+    device/xiaomi/libra/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml
+
+# Input device files
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/keylayout/atmel-maxtouch.kl:system/usr/keylayout/atmel-maxtouch.kl \
+    device/xiaomi/libra/keylayout/atmel-maxtouch-edge.kl:system/usr/keylayout/atmel-maxtouch-edge.kl \
+    device/xiaomi/libra/keylayout/ft5x46.kl:system/usr/keylayout/ft5x46.kl \
+    device/xiaomi/libra/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    device/xiaomi/libra/keylayout/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
+    device/xiaomi/libra/keylayout/synaptics_dsx.kl:system/usr/keylayout/synaptics_dsx.kl \
+    device/xiaomi/libra/keylayout/synaptics_dsx_edge.kl:system/usr/keylayout/synaptics_dsx_edge.kl
+
+# These are the hardware-specific features
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.camera.full.xml:system/etc/permissions/android.hardware.camera.full.xml \
+    frameworks/native/data/etc/android.hardware.camera.raw.xml:system/etc/permissions/android.hardware.camera.raw.xml \
+    frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
+    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml \
+    frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml \
+    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
+    frameworks/native/data/etc/android.software.verified_boot.xml:system/etc/permissions/android.software.verified_boot.xml
+
+# For SPN display
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/spn-conf.xml:system/etc/spn-conf.xml
+
+# For GPS
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/sec_config:system/etc/sec_config
+
+# For WiFi
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    device/xiaomi/libra/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    device/xiaomi/libra/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    device/xiaomi/libra/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/qca_cld/WCNSS_cfg.dat \
+    device/xiaomi/libra/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/qca_cld/WCNSS_qcom_wlan_nv.bin
+
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/wifi/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    device/xiaomi/libra/wifi/hostapd.conf:system/etc/hostapd/hostapd_default.conf \
+    device/xiaomi/libra/wifi/hostapd.deny:system/etc/hostapd/hostapd.deny
+
+# Thermal engine
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/thermal-engine-8992.conf:system/etc/thermal-engine-8992.conf
+
+# MSM IRQ balance
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/msm_irqbalance.conf:system/etc/msm_irqbalance.conf
+
+# Power configuration file
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/init.libra.power.sh:system/bin/init.libra.power.sh
+
+# MBN
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/init.libra.sh:system/bin/init.libra.sh
+
+# Fingerprint disabler
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/fingerprint.sh:system/bin/fingerprint.sh
+
+PRODUCT_TAGS += dalvik.gc.type-precise
+
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+PRODUCT_AAPT_PREBUILT_DPI := xxhdpi xhdpi hdpi
+
+# Browser
+PRODUCT_PACKAGES += \
+    Browser
+
+# for off charging mode
+WITH_CM_CHARGER := false
+
+PRODUCT_PACKAGES += \
+    charger_res_images \
+    libhealthd.qcom
+
+# aqua boot helper
+PRODUCT_PACKAGES += \
+    aqua
+
+PRODUCT_PACKAGES += \
+    gralloc.msm8992 \
+    hwcomposer.msm8992 \
+    libgenlock \
+    memtrack.msm8992 \
+    lights.libra
+
+PRODUCT_PACKAGES += \
+    libc2dcolorconvert \
+    libstagefrighthw \
+    libOmxCore \
+    libmm-omxcore \
+    libOmxVdec \
+    libOmxVdecHevc \
+    libOmxVenc
+
+# Audio HAL and utilities
+PRODUCT_PACKAGES += \
+    audio.primary.msm8992 \
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    libaudio-resampler
+
+# Audio effects
+PRODUCT_PACKAGES += \
+    libqcomvoiceprocessing \
+    libqcomvoiceprocessingdescriptors \
+    libqcomvisualizer \
+    libqcompostprocbundle
+
+PRODUCT_PACKAGES += \
+    librmnetctl \
+    rmnetcli \
+    libxml2
+
+# GPS configuration
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/gps.conf:system/etc/gps.conf
+
+# Fingerprint Sensor
+PRODUCT_PACKAGES += \
+    fingerprint.libra \
+    fingerprintd
+
+# Wi-Fi
+PRODUCT_PACKAGES += \
+    libwpa_client \
+    hostapd \
+    dhcpcd.conf \
+    wpa_supplicant \
+    wpa_supplicant.conf \
+    xiaomi_hwaddrs
+
+# Camera
+PRODUCT_PACKAGES += \
+    camera.msm8992 \
+    libcamera \
+    libmmcamera_interface \
+    libmmcamera_interface2 \
+    libmmjpeg_interface \
+    libqomx_core \
+    mm-qcamera-app \
+    Snap
+
+# Snap Config
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.cpp.duplication=false
+
+# Sensor & activity_recognition HAL
+PRODUCT_PACKAGES += \
+    sensors.msm8992 \
+    activity_recognition.libra
+
+# Multi HAL configuration file
+PRODUCT_COPY_FILES += \
+    device/xiaomi/libra/hals.conf:system/etc/sensors/hals.conf
+
+# Build stlport for legacy blobs
+PRODUCT_PACKAGES += \
+    libstlport
+
+# Legacy blob symbols
+PRODUCT_PACKAGES += \
+    libshim_camera
+
+PRODUCT_PACKAGES += \
+    keystore.msm8992 \
+    gatekeeper.msm8992
+
+# For android_filesystem_config.h
+PRODUCT_PACKAGES += \
+   fs_config_files
+
+# ANT+
+PRODUCT_COPY_FILES += \
+    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/etc/permissions/com.dsi.ant.antradio_library.xml
+
+PRODUCT_PACKAGES += \
+    AntHalService \
+    com.dsi.ant.antradio_library \
+    libantradio \
+    libbt-vendor
+
+DEVICE_PACKAGE_OVERLAYS := \
+    device/xiaomi/libra/overlay
+
+# Enable AAC 5.1 output
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.aac_51_output_enabled=true
+
+# Audio
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.audio.ssr=true \
+    persist.audio.ssr.3mic=true \
+    ro.qc.sdk.audio.fluencetype=fluence \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicecomm=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=true \
+    persist.speaker.prot.enable=false \
+    ro.config.vc_call_vol_steps=7 \
+    audio.offload.pcm.24bit.enable=true
+
+# Custom acdb name
+PRODUCT_PROPERTY_OVERRIDES += \
+    audio.acdb.name=Forte
+
+# Reduce client buffer size for fast audio output tracks
+PRODUCT_PROPERTY_OVERRIDES += \
+    af.fast_track_multiplier=1
+
+# Low latency audio buffer size in frames
+PRODUCT_PROPERTY_OVERRIDES += \
+    audio_hal.period_size=192
+
+# Enable dirac effect for speaker
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.audio.dirac.speaker=true
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=15
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version=196609
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sf.lcd_density=420
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.hwc.mdpcomp.enable=true
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.composition.type=c2d \
+    debug.egl.hw=1 \
+    debug.sf.hw=1 \
+    persist.metadata_dynfps.disable=true
+
+# Enable low power video mode for 4K encode
+PRODUCT_PROPERTY_OVERRIDES += \
+    vidc.debug.perf.mode=2 \
+    vidc.enc.dcvs.extra-buff-count=2
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hwui.texture_cache_size=56 \
+    ro.hwui.layer_cache_size=32 \
+    ro.hwui.r_buffer_cache_size=8 \
+    ro.hwui.path_cache_size=16 \
+    ro.hwui.gradient_cache_size=1 \
+    ro.hwui.drop_shadow_cache_size=6 \
+    ro.hwui.texture_cache_flushrate=0.4 \
+    ro.hwui.text_small_cache_width=1024 \
+    ro.hwui.text_small_cache_height=1024 \
+    ro.hwui.text_large_cache_width=2048 \
+    ro.hwui.text_large_cache_height=1024
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true
+
+# for perfd
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.io.scheduler=bfq \
+    ro.min_freq_0=384000 \
+    ro.min_freq_4=384000
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=libqti-perfd-client.so
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    rild.libpath=/vendor/lib64/libril-qc-qmi-1.so
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.default_cdma_sub=0 \
+    persist.qcril.disable_retry=true
+
+# LTE, CDMA, GSM/WCDMA
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.default_network=22 \
+    telephony.lteOnCdmaDevice=1 \
+    persist.radio.mode_pref_nv10=1
+
+# Multi SIM
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.multisim.config=dsds
+
+# RIL subscription types
+PRODUCT_PROPERTY_OVERRIDES += \
+    ril.subscription.types=RUIM
+
+# Enable manual network selection function and distinguish 2G/3G/4G
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.rat_on=combine
+
+# Emergency call overrides for Korea
+PRODUCT_PROPERTY_OVERRIDES += \
+    ril.nosim.ecc_list_count=1 \
+    ril.nosim.ecc_list_1=111,113,117,122,125
+
+# low audio flinger standby delay to reduce power consumption
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.audio.flinger_standbytime_ms=300
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.apm_sim_not_pwdn=1
+
+# Setup custom emergency number list based on the MCC. This is needed by RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.custom_ecc=1
+
+# IMS over WiFi
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.iwlan.enable=true
+
+# Request modem to send PLMN name always irrespective
+# of display condition in EFSPN.
+# RIL uses this property.
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.always_send_plmn=true
+
+# Ril sends only one RIL_UNSOL_CALL_RING, so set call_ring.multiple to false
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.telephony.call_ring.multiple=0
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.use_cc_names=true
+
+# Update 1x signal strength after 10s
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.radio.snapshot_enabled=1 \
+    persist.radio.snapshot_timer=10
+
+# If data_no_toggle is 0 there are no reports if the screen is off.
+# If data_no_toggle is 1 then dormancy indications will come with screen off.
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.data_no_toggle=1
+
+# Adjust STK popup operation
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.process_sups_ind=1
+
+# VZW voice roaming issue
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.eri64_as_home=1
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.radio.data_con_rprt=true
+
+# Set bluetooth soc to rome
+PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.bluetooth.soc=rome
+
+# Set Bluetooth transport initialization timeout
+PRODUCT_PROPERTY_OVERRIDES += \
+    bluetooth.enable_timeout_ms=12000
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.bt.bdaddr_path=/data/misc/bluetooth/bdaddr.txt
+
+# limit dex2oat threads to improve thermals
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.boot-dex2oat-threads=4 \
+    dalvik.vm.dex2oat-threads=2 \
+# Global Flags
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+
+# Screen Settings
+TARGET_SCREEN_HEIGHT := 1920
+TARGET_SCREEN_WIDTH := 1080
+PRODUCT_AAPT_CONFIG := normal
+PRODUCT_AAPT_PREF_CONFIG := xxhdpi
+
+# Client ID
+PRODUCT_GMS_CLIENTID_BASE := android-zuk
+
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, vendor/zuk/z2pro/z2pro-vendor.mk)
+# Source-Dependent Inherit
+$(call inherit-product, vendor/slim/config/common_full_phone.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-3072-hwui-memory.mk)
+
+#-include $(LOCAL_PATH)/system_prop.mk
+
+# Prop Shit
+PRODUCT_PACKAGES += \
+    libloc_api_v02 \
+    libthermalclient \
+    datastatusnotification \
+    QtiTelephonyService \
+    shutdownlistener \
+    TimeService \
+    CNEService \
+    com.qualcomm.location \
+    dpmserviceapp \
+    qcrilmsgtunnel \
+    QtiTetherService \
+    colorservice \
+    ims \
+    imssettings \
+    qcnvitems \
+    libtime_genoff \
+    libbtnv \
+    qcrilhook
+
+# Permissions
+PRODUCT_COPY_FILES += \
+    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/etc/permissions/com.dsi.ant.antradio_library.xml \
+    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.camera.full.xml:system/etc/permissions/android.hardware.camera.full.xml \
+    frameworks/native/data/etc/android.hardware.camera.raw.xml:system/etc/permissions/android.hardware.camera.raw.xml \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml \
+    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
+    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
+    frameworks/native/data/etc/android.hardware.sensor.hifi_sensors.xml:system/etc/permissions/android.hardware.sensor.hifi_sensors.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
+    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml \
+    frameworks/native/data/etc/android.software.print.xml:system/etc/permissions/android.software.print.xml \
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
+
+# ANT+
+PRODUCT_PACKAGES += \
+    AntHalService \
+    com.dsi.ant.antradio_library \
+    libantradio
+
+# Audio
+PRODUCT_PACKAGES += \
+    audiod \
+    audio.a2dp.default \
+    audio.r_submix.default \
+    audio.usb.default \
+    libaudio-resampler \
+    libaudioroute \
+    libqcompostprocbundle \
+    libqcomvisualizer \
+    libqcomvoiceprocessing \
+    libtinycompress \
+    libvolumelistener \
+    tinymix
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/aanc_tuning_mixer.txt:system/etc/aanc_tuning_mixer.txt \
+    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/audio/audio_output_policy.conf:system/vendor/etc/audio_output_policy.conf \
+    $(LOCAL_PATH)/audio/audio_platform_info.xml:system/etc/audio_platform_info.xml \
+    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/audio/listen_platform_info.xml:system/etc/listen_platform_info.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_tasha.xml:system/etc/mixer_paths_tasha.xml \
+    $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_dtp.xml:system/etc/mixer_paths_dtp.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_i2s.xml:system/etc/mixer_paths_i2s.xml \
+    $(LOCAL_PATH)/audio/mixer_paths_tasha_z2_row.xml:system/etc/mixer_paths_tasha_z2_row.xml \
+    $(LOCAL_PATH)/audio/sound_trigger_mixer_paths.xml:system/etc/sound_trigger_mixer_paths.xml \
+    $(LOCAL_PATH)/audio/sound_trigger_mixer_paths_wcd9330.xml:system/etc/sound_trigger_mixer_paths_wcd9330.xml \
+    $(LOCAL_PATH)/audio/sound_trigger_platform_info.xml:system/etc/sound_trigger_platform_info.xml
+
+# Browser
+PRODUCT_PACKAGES += \
+    Browser
+
+# Camera
+PRODUCT_PACKAGES += \
+    Snap
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/camera/msm8996_camera.xml:system/etc/camera/msm8996_camera.xml \
+    $(LOCAL_PATH)/configs/camera/ov8865_chromatix.xml:system/etc/camera/ov8865_chromatix.xml \
+    $(LOCAL_PATH)/configs/camera/s5k2m8sx_chromatix.xml:system/etc/camera/s5k2m8sx_chromatix.xml
+
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images
+
+# Device config scripts
+PRODUCT_PACKAGES += \
+    init.leds.sh \
+    init.qcom.bt.sh
+
+# Device init scripts
+PRODUCT_PACKAGES += \
+    fstab.qcom \
+    init.qcom.rc \
+    init.qcom.power.rc \
+    init.qcom.usb.rc \
+    init.target.rc \
+    ueventd.qcom.rc \
+    init.qcom.usb.sh \
+    init.qcom.sh
+
+# CNE
+PRODUCT_PACKAGES += \
+    libcnefeatureconfig
+
+# Display
+PRODUCT_PACKAGES += \
+    copybit.msm8996 \
+    gralloc.msm8996 \
+    hwcomposer.msm8996 \
+    memtrack.msm8996 \
+    liboverlay \
+    libtinyxml
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/calib.cfg:system/etc/calib.cfg
+
+# Doze mode
+PRODUCT_PACKAGES += \
+    ZukDoze
+
+# Fingerprint
+PRODUCT_PACKAGES += \
+    fingerprintd
+
+# GPS
+PRODUCT_PACKAGES += \
+    gps.msm8996
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/gps/etc/flp.conf:system/etc/flp.conf \
+    $(LOCAL_PATH)/gps/etc/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/etc/izat.conf:system/etc/izat.conf \
+    $(LOCAL_PATH)/gps/etc/sap.conf:system/etc/sap.conf \
+    $(LOCAL_PATH)/gps/etc/xtwifi.conf:system/etc/xtwifi.conf
+
+# Input
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/idc/usf_tsc.idc:system/usr/idc/usf_tsc.idc \
+    $(LOCAL_PATH)/idc/usf_tsc_ext.idc:system/usr/idc/usf_tsc_ext.idc \
+    $(LOCAL_PATH)/idc/usf_tsc_ptr.idc:system/usr/idc/usf_tsc_ptr.idc
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/keylayout/qpnp_pon.kl:system/usr/keylayout/qpnp_pon.kl \
+    $(LOCAL_PATH)/keylayout/synaptics_dsx.kl:system/usr/keylayout/synaptics_dsx.kl \
+    $(LOCAL_PATH)/keylayout/fpc1020tp.kl:system/usr/keylayout/fpc1020tp.kl \
+    $(LOCAL_PATH)/keylayout/goodix_fp.kl:system/usr/keylayout/goodix_fp.kl \
+    $(LOCAL_PATH)/keylayout/goodix-ts.kl:system/usr/keylayout/goodix-ts.kl
+
+# IPA Manager
+PRODUCT_PACKAGES += \
+    ipacm \
+    IPACM_cfg.xml
+
+# IPC router config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sec_config:system/etc/sec_config
+
+# IPv6
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes \
+    libebtc
+
+# IRQ Balancer
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
+
+# Lights
+PRODUCT_PACKAGES += \
+    lights.msm8996
+
+# Media
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml
+
+# Google Props
+PRODUCT_COPY_FILES += \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+
+# OMX
+PRODUCT_PACKAGES += \
+    libc2dcolorconvert \
+    libdivxdrmdecrypt \
+    libmm-omxcore \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libOmxCore \
+    libOmxEvrcEnc \
+    libOmxQcelp13Enc \
+    libOmxVdec \
+    libOmxVenc \
+    libstagefrighthw
+
+# Performance
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/perf-profile0.conf:system/vendor/etc/perf-profile0.conf \
+    $(LOCAL_PATH)/configs/perf-profile1.conf:system/vendor/etc/perf-profile1.conf \
+    $(LOCAL_PATH)/configs/perf-profile2.conf:system/vendor/etc/perf-profile2.conf \
+    $(LOCAL_PATH)/configs/perf-profile3.conf:system/vendor/etc/perf-profile3.conf \
+    $(LOCAL_PATH)/configs/perf-profile4.conf:system/vendor/etc/perf-profile4.conf \
+    $(LOCAL_PATH)/configs/perf-profile5.conf:system/vendor/etc/perf-profile5.conf \
+    $(LOCAL_PATH)/configs/perf-profile6.conf:system/vendor/etc/perf-profile6.conf
+
+# Power
+PRODUCT_PACKAGES += \
+    power.msm8996
+
+# QMI
+PRODUCT_PACKAGES += \
+    dsi_config.xml \
+    netmgr_config.xml \
+    qmi_config.xml
+
+# RIL
+PRODUCT_PACKAGES += \
+    librmnetctl \
+    libtinyxml2 \
+    libxml2
+
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.msm8996
+
+# Abstraction layer
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
+    $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
+
+# Thermal
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/thermal-engine.conf:system/etc/thermal-engine.conf
+
+# WiFi
+PRODUCT_PACKAGES += \
+    dhcpcd.conf \
+    libqsap_sdk \
+    libQWiFiSoftApCfg \
+    libwpa_client \
+    hostapd \
+    wpa_supplicant \
+    wpa_supplicant.conf
+
+# Host APD
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/hostapd.accept:system/etc/hostapd/hostapd.accept \
+    $(LOCAL_PATH)/wifi/hostapd.deny:system/etc/hostapd/hostapd.deny \
+    $(LOCAL_PATH)/wifi/hostapd_default.conf:system/etc/hostapd/hostapd_default.conf \
+    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+
+# Wifi etc
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/fstman.ini:system/etc/wifi/fstman.ini \
+    $(LOCAL_PATH)/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/qca_cld/WCNSS_cfg.dat \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini
+
+# Set those variables here to overwrite the inherited values.
+PRODUCT_DEVICE := z2pro
+# Change name to AOSP, Slim, CM, whatever you're building.
+PRODUCT_NAME := slim_z2pro
+PRODUCT_BRAND := zuk
+PRODUCT_MODEL := zuk z2pro
+PRODUCT_MANUFACTURER := zuk
